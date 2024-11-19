@@ -39,21 +39,22 @@ public class AssetImportWindow : EditorWindow
         }
 
         GUILayout.Space(10);
+        assetStoreScrollPosition = EditorGUILayout.BeginScrollView(assetStoreScrollPosition);
 
         SABI();
         GUILayout.Space(10);
 
         AssetStore();
+        EditorGUILayout.EndScrollView();
     }
 
     private void AssetStore()
     {
         bool assetStoreFoldout = EditorPrefs.GetBool("AssetStoreFoldout", false);
-        assetStoreFoldout = EditorGUILayout.Foldout(assetStoreFoldout, "Asset Store");
+        assetStoreFoldout = EditorGUILayout.Foldout(assetStoreFoldout, "Asset Store", true);
         EditorPrefs.SetBool("AssetStoreFoldout", assetStoreFoldout);
         if (assetStoreFoldout)
         {
-            assetStoreScrollPosition = EditorGUILayout.BeginScrollView(assetStoreScrollPosition);
             foreach (var asset in UnityAssetLocations.AssetStore)
             {
                 importToggles[asset.Key] = EditorGUILayout.ToggleLeft(
@@ -61,14 +62,13 @@ public class AssetImportWindow : EditorWindow
                     importToggles[asset.Key]
                 );
             }
-            EditorGUILayout.EndScrollView();
         }
     }
 
     private void SABI()
     {
         bool sabiFoldout = EditorPrefs.GetBool("SABIFoldout", false);
-        sabiFoldout = EditorGUILayout.Foldout(sabiFoldout, "Sabi");
+        sabiFoldout = EditorGUILayout.Foldout(sabiFoldout, "Sabi", true);
         EditorPrefs.SetBool("SABIFoldout", sabiFoldout);
         if (sabiFoldout)
         {
